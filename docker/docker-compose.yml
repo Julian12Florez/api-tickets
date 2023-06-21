@@ -1,0 +1,20 @@
+version: '3.1'
+
+services:
+  db:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'test_tickets'
+      MYSQL_USER: 'tickets'
+      MYSQL_PASSWORD: 't1ck3t5'
+      MYSQL_ROOT_PASSWORD: 't1ck3t5'
+    ports:
+      - '3306:3306'
+    container_name: tickets_database
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    container_name: admin_tickets

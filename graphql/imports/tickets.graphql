@@ -1,0 +1,25 @@
+#import ./imports/*.graphql
+
+enum TicketStatus {
+  CLOSE @enum(value: close)
+  OPEN @enum(value: open)
+}
+
+type Ticket {
+    id: ID!
+    user: User
+    created_at: DateTime!
+    updated_at: DateTime!
+    status: TicketStatus
+}
+
+extend type Query {
+    tickets: [Ticket!]! @paginate(defaultCount: 10)
+    ticket(id: ID! @eq): Ticket @find
+}
+
+extend type Mutation {
+    createTicket(user_id: Int!, status: TicketStatus): Ticket! @validator @create
+    updateTicket(id: ID!, status: TicketStatus): Ticket! @update
+    deleteTicket(id: ID! @eq): Ticket! @delete
+}
